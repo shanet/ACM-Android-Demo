@@ -1,4 +1,5 @@
 http://acm.psu.edu
 
 This is a simple Android demo application made for the Penn State ACM's intro to Android workshop.
+It is a simple drawing app that allows the selection of either red, green, or blue and a paint size.
 
