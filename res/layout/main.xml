@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView android:id="@+id/colorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dip"
+        android:textSize="20dip"
+        android:text="@string/colorLabel"/>
+    
+    <Spinner android:id="@+id/colorSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/colorLabel"
+        android:layout_alignBaseline="@id/colorLabel"
+        android:prompt="@string/colorPrompt"
+        android:entries="@array/colors"/>
+    
+    <TextView android:id="@+id/sizeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/colorSpinner"
+        android:layout_marginTop="10dip"
+        android:textSize="20dip"
+        android:text="@string/sizeLabel"/>
+    
+    <EditText android:id="@+id/sizeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/sizeLabel"
+        android:layout_alignBaseline="@id/sizeLabel"
+        android:singleLine="true"
+        android:inputType="number"
+        android:text="@string/defaultSize"/>
+    
+    <Button android:id="@+id/startCanvasButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sizeLabel"
+        android:layout_centerHorizontal="true"
+        android:text="@string/start"/>
+
+</RelativeLayout>

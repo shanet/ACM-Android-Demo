@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, main!</string>
+    <string name="app_name">ACM_Demo</string>
+    
+    <string name="colorLabel">Color:</string>
+    <string name="sizeLabel">Size:</string>
+    <string name="defaultSize">30</string>
+    <string name="start">Start</string>
+    
+    <string name="colorPrompt">Choose a color</string>
+    <string-array name="colors">
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+    </string-array>
+
+</resources>
