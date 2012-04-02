@@ -1,5 +1,8 @@
 # Ignore all the binary files Eclipse likes to make
+*.apk
 *.class
+*.dex
+*.ap_
 src/android_client/bin/*
 gen/com/shanet/acm_demo/R.java
 
