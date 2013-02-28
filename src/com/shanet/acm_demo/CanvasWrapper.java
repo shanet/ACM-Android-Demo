@@ -5,9 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 public class CanvasWrapper extends Activity {
-	public static final int RED = 0;
-	public static final int GREEN = 1;
-	public static final int BLUE = 2;
+	
+	private static final int RED   = 0;
+	private static final int GREEN = 1;
+	private static final int BLUE  = 2;
 	
 	private CustomCanvas cc;
 	
@@ -16,7 +17,7 @@ public class CanvasWrapper extends Activity {
         super.onCreate(savedInstanceState);
         
         int color = ((Integer)getIntent().getExtras().get("color")).intValue();
-        int size = ((Integer)getIntent().getExtras().get("size")).intValue();
+        int size  = ((Integer)getIntent().getExtras().get("size")).intValue();
         
         cc = new CustomCanvas(this);
         

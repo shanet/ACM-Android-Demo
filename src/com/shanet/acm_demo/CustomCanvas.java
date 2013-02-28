@@ -16,10 +16,10 @@ public class CustomCanvas extends SurfaceView implements Runnable {
 
 	private Path path;
 	private Paint paint;
-	private ArrayList<Path> paths = new ArrayList<Path>();  
-	private Thread thread = null;
+	private ArrayList<Path> paths;
 	private SurfaceHolder surfaceHolder;
-	private volatile boolean running = false;
+	private boolean drawing;
+	private Thread drawingThread;
 
 	public CustomCanvas(Context context) {
 		this(context, null);
@@ -42,77 +42,80 @@ public class CustomCanvas extends SurfaceView implements Runnable {
 		paint.setStrokeWidth(30);
 
 		surfaceHolder = getHolder();
+		paths = new ArrayList<Path>();
 	}
+	
 
 	public void setColor(int color) {
 		paint.setColor(color);
 	}
+	
 
 	public void setSize(int size) {
 		paint.setStrokeWidth(size);
 	}
-
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		// Clear the previous paths since they should have already been drawn
-		paths.clear();
-
-		synchronized (getHolder()) {
-			if(event.getAction() == MotionEvent.ACTION_DOWN) {
-				// Start a new path
-				path = new Path();
-				path.moveTo(event.getX(), event.getY());  
-				path.lineTo(event.getX(), event.getY());
-			} else if(event.getAction() == MotionEvent.ACTION_MOVE) {  
-				// Get a line to the current position
-				path.lineTo(event.getX(), event.getY());
-				// Add the path to the paths array
-				paths.add(path);
-			} else if(event.getAction() == MotionEvent.ACTION_UP) {
-				// Get the final position and add it to the paths array
-				path.lineTo(event.getX(), event.getY());
-				paths.add(path);
-			}
-		}
-		return true;
-	}
-
+	
 	public void onResume() {
 		// Init and start the thread
-		running = true;
-		thread = new Thread(this);
-		thread.start();
+		drawing = true;
+		drawingThread = new Thread(this);
+		drawingThread.start();
 	}
 
 	public void onPause() {
-		boolean retry = true;
-		running = false;
-		while(retry) {
-			try {
-				// Wait until the current thread ends
-				thread.join();
-				retry = false;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		drawing = false;
+		try {
+			// Wait until the drawing thread ends
+			drawingThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
+	
 
 	@Override
-	public void run() {
-		while(running){
+	public boolean onTouchEvent(MotionEvent event) {
+		synchronized(paths) {
+			switch(event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					// Start a new path
+					path = new Path();
+					path.moveTo(event.getX(), event.getY());  
+					path.lineTo(event.getX(), event.getY());
+					break;
+				case MotionEvent.ACTION_MOVE:
+					// Get a line to the current position
+					path.lineTo(event.getX(), event.getY());
+					
+					// Add the path to the paths array
+					paths.add(path);
+					break;
+				case MotionEvent.ACTION_UP:
+					// Get the final position and add it to the paths array
+					path.lineTo(event.getX(), event.getY());
+					paths.add(path);
+			}
+		}
+		
+		return true;
+	}
+	
+
+	@Override public void run() {
+		while(drawing) {
 			if(surfaceHolder.getSurface().isValid()){
-				// Unlock the canvas to allow for drawing
+				// Lock the canvas to allow for drawing
 				Canvas canvas = surfaceHolder.lockCanvas();
 
 				// Draw the current path to the canvas
-				synchronized (canvas) {
+				synchronized(paths) {
 					for(Path path : paths) {
 						canvas.drawPath(path, paint);
-					}	
+					}
+					paths.clear();
 				}
 
-				// Lock it again
+				// Unlock it since we're finished
 				surfaceHolder.unlockCanvasAndPost(canvas);
 			}
 		}		

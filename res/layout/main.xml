@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dip"
-        android:textSize="20dip"
+        android:textSize="20sp"
         android:text="@string/colorLabel"/>
     
     <Spinner android:id="@+id/colorSpinner"
@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/colorLabel"
         android:layout_alignBaseline="@id/colorLabel"
+        android:layout_marginLeft="10dip"
         android:prompt="@string/colorPrompt"
         android:entries="@array/colors"/>
     
@@ -24,8 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/colorSpinner"
-        android:layout_marginTop="10dip"
-        android:textSize="20dip"
+        android:layout_marginTop="20dip"
+        android:textSize="20sp"
         android:text="@string/sizeLabel"/>
     
     <EditText android:id="@+id/sizeText"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/sizeLabel"
         android:layout_alignBaseline="@id/sizeLabel"
+        android:layout_marginLeft="10dip"
         android:singleLine="true"
         android:inputType="number"
         android:text="@string/defaultSize"/>
