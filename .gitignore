@@ -10,8 +10,8 @@
 *.class
 
 # generated files
-Android/bin/
-Android/gen/
+bin/
+gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
