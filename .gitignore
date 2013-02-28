@@ -1,10 +1,23 @@
-# Ignore all the binary files Eclipse likes to make
-*.apk
-*.class
-*.dex
+# Android junk
+# built application files
 *.ap_
-src/android_client/bin/*
-gen/com/shanet/acm_demo/R.java
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+Android/bin/
+Android/gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
 
 # OS junk
 .DS_Store*
